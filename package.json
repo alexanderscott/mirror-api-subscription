@@ -1,0 +1,26 @@
+{
+  "name": "mirror-api-subscription",
+  "version": "0.9.0",
+  "description": "Manages subscription callback from Google Mirror API.",
+  "main": "index.js"
+, "dependencies": {
+    "moment": "~2.2.1"
+  }
+, "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bestng/mirror-api-subscription.git"
+  },
+  "keywords": [
+    "google",
+    "glass",
+    "mirror"
+  ],
+  "author": "XiNGRZ <chenxingyu92@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bestng/mirror-api-subscription/issues"
+  }
+}
