@@ -4,9 +4,14 @@ mirror-api-subscription
 Manages subscription callback from Google Mirror API.
 
 ```js
-var app = require('express')()
+var express = require('express')
+  , app = express()
+
+app.use(express.bodyParser())
+app.use(app.router)
 
 var User = require('./models/user')
+
 
 var subscription = require('mirror-api-subscription')(
 function (userToken, verifyToken, done) {
