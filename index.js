@@ -1,6 +1,5 @@
 var EventEmitter = require('events').EventEmitter
   , inherits = require('util').inherits
-  , moment = require('moment')
 
 function Subscription (verifyer) {
   if (!(this instanceof Subscription)) {
@@ -16,27 +15,6 @@ function Subscription (verifyer) {
 
 inherits(Subscription, EventEmitter)
 module.exports = Subscription
-
-Subscription.prototype.verbose = function (message) {
-  var args = Array.prototype.slice.call(arguments, 2)
-  args[2] = moment().format('YYYY-MM-DD HH:mm:ss.SSS') + ' '
-          + this.itemId + ' '
-          + this.user.id + ' '
-          + args[2]
-
-  console.log.apply(console, args)
-}
-
-Subscription.prototype.error = function (err) {
-  console.warn(
-    moment().format('YYYY-MM-DD HH:mm:ss.SSS') + ' '
-  + this.itemId + ' '
-  + this.user.id + ' '
-  + 'ERROR'
-  )
-
-  console.error(err.stack)
-}
 
 Subscription.prototype.verifyer = function (userToken, verifyToken, callback) {
   callback(new Error('You must override Subscription#verifyer()'))
