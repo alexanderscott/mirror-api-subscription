@@ -32,6 +32,13 @@ function (notification, user, payload) {
   , user.id, notification.itemId)
 })
 
+subscription.on('timeline#UPDATE:CUSTOM',
+function (notification, user, payload) {
+  if ('LIKE' == payload) {
+    console.log('user %s like %s', user.id, notification.itemId)
+  }
+})
+
 app.post('/notification', subscription.dispatcher())
 ```
 
