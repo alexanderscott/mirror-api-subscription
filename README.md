@@ -42,6 +42,19 @@ function (notification, user, payload) {
 app.post('/notification', subscription.dispatcher())
 ```
 
+## API
+
+### Subscription([verifier])
+
+Returns a new subscription instance optionally specifing a verifier function.
+
+#### Arugments
+
+- ***verifyer(userToken, verifyToken, callback)*** {Function} - Verifier function that is used to fetch user profile from your database with `userToken`.
+  - **userToken** {String} - User token you specified when registering the subscription callback representing an individual user.
+  - ***verifyToken*** {String|null} - Verify token you specified when registering the subscription callback for verifying the validity of this notification.
+  - **done(err, user)** {Function} - An callback that must be called to return an user object after you finished fetching from your database.
+
 ## TODO
 
 - Test cases
