@@ -46,14 +46,31 @@ app.post('/notification', subscription.dispatcher())
 
 ### Subscription([verifier])
 
-Returns a new subscription instance optionally specifing a verifier function.
+Returns a new subscription instance optionally specifing a verifier
+function. It's an [EventEmitter](http://nodejs.org/api/events.html#events_class_events_eventemitter)
+instance so that you can attach event listener to it.
 
 #### Arugments
 
-- ***verifyer(userToken, verifyToken, callback)*** {Function} - Verifier function that is used to fetch user profile from your database with `userToken`.
-  - **userToken** {String} - User token you specified when registering the subscription callback representing an individual user.
-  - ***verifyToken*** {String|null} - Verify token you specified when registering the subscription callback for verifying the validity of this notification.
-  - **done(err, user)** {Function} - An callback that must be called to return an user object after you finished fetching from your database.
+- ***verifyer(userToken, verifyToken, callback)*** {Function} - Verifier
+  function that is used to fetch user profile from your database with `userToken`.
+  - **userToken** {String} - User token you specified when registering
+    the subscription callback representing an individual user.
+  - ***verifyToken*** {String|null} - Verify token you specified when
+    registering the subscription callback for verifying the validity of
+    this notification.
+  - **done(err, user)** {Function} - An callback that must be called to
+    return an user object after you finished fetching from your database.
+
+#### Returns
+
+{Subscription} - The instance
+
+### Subscription#on
+### Subscription#once
+### Subscription#off
+
+### Subscription#dispatcher()
 
 ## TODO
 
