@@ -1,6 +1,8 @@
 var EventEmitter = require('events').EventEmitter
   , inherits = require('util').inherits
 
+var debug = require('debug')('subscription')
+
 function Subscription (verifyer) {
   if (!(this instanceof Subscription)) {
     return new Subscription(verifyer)
@@ -27,6 +29,8 @@ Subscription.prototype.dispatcher = function () {
 
     var notification = req.body
 
+    debug('got notification')
+
     if (!notification)              return
     if (!notification.collection)   return
     if (!notification.operation)    return
@@ -36,28 +40,33 @@ Subscription.prototype.dispatcher = function () {
     self.verifyer(notification.userToken, notification.verifyToken,
     function (err, user) {
       if (err) {
-        return self.error(err)
+        debug('error when verifying user')
+        console.error(err.stack || err)
+        return
       }
 
       if (!user) {
-        return self.error(new Error('Invalid userToken, abandoned'))
+        debug('invalid token %s, %s',
+          notification.userToken, notification.verifyToken)
+        return
       }
 
       var eventName = notification.collection + '#' + notification.operation
 
       if (notification.userActions) {
         notification.userActions.forEach(function (action) {
-          var actionEventName = eventName + ':' + action.type
+          eventName += ':' + action.type
 
           if (action.payload) {
-            self.emit(actionEventName, notification, user, action.payload)
+            eventName += '(' + action.payload + ')'
           }
-          else {
-            self.emit(actionEventName, notification, user)
-          }
+
+          debug('emit %s for user %s', eventName, user.id)
+          self.emit(eventName, notification, user)
         })
       }
       else {
+        debug('emit %s for user %s', eventName, user.id)
         self.emit(eventName, notification, user)
       }
     })

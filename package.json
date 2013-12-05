@@ -1,13 +1,12 @@
 {
   "name": "mirror-api-subscription",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Manages subscription callback from Google Mirror API.",
   "main": "index.js"
 , "dependencies": {
-    "moment": "~2.2.1"
+    "debug": "*"
   }
 , "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
